@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="genre-title">{% if current_genre %}Жанр: <span>{{ current_genre }}</span>{% else %}Кинотека{% endif %}</h1>
+    <div class="movie-list">
+        {% for film in films %}
+        <div class="movie-item">
+            <div class="movie-header">
+                <h2><small>#{{ film.film_id }}</small> {{ film.title }}</h2>
+            </div>
+            <p class="movie-description">{{ film.description }}</p>
+            <div class="movie-footer">
+                <span class="year">📅 {{ film.release_year }} | {{ film.rating }}</span>
+                <span class="duration">⏳ {{ film.length }} мин.</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+    <div class="p-left">
+        {% if page > 0 %}
+            <span class="p-side-num">{{ page }}</span>
+            <a href="{{ request.url.include_query_params(page=page-1) }}" class="p-btn">⬅ Назад</a>
+        {% endif %}
+    </div>
+
+    <span class="page-info">{{ page + 1 }}</span>
+
+    <div class="p-right">
+        {% if films|length == 10 %}
+            <a href="{{ request.url.include_query_params(page=page+1) }}" class="p-btn">Вперед ➡</a>
+            <span class="p-side-num">{{ page + 2 }}</span>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+

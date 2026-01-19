@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>My Cinema</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="brand"><a href="/">My Cinema</a></div>
+        <div class="search-bar">
+            <form action="/search" method="get">
+                <input type="text" name="q" placeholder="Название..." value="{{ query or '' }}">
+                <button type="submit">Найти</button>
+            </form>
+            <form action="/filter" method="get">
+                <select name="cat_id">
+                    <option value="">Все жанры</option>
+                    {% for cat in meta.genres %}
+                        <option value="{{ cat.category_id }}" {% if selected_cat == cat.category_id %}selected{% endif %}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="y_from" placeholder="От" value="{{ year_from or '' }}">
+                <input type="number" name="y_to" placeholder="До" value="{{ year_to or '' }}">
+                <button type="submit">ОК</button>
+            </form>
+
+            <div class="analytics-group">
+                <div class="popular-dropdown">
+                    <span class="popular-link">🔥 Популярное</span>
+                    <div class="popular-content">
+                        {% for item in popular_queries %}
+                            <a href="/search?q={{ item.query }}">
+                                <span>{{ item.query }}</span>
+                                <span class="badge">{{ item.count }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="popular-dropdown">
+                    <span class="popular-link">🕒 Недавние</span>
+                    <div class="popular-content">
+                        {% for item in recent_queries %}
+                            <a href="/search?q={{ item.query }}">
+                                <span>{{ item.query }}</span>
+                                <span class="badge grey">{{ item.count }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="genre-sidebar">
+            <h3>Жанры</h3>
+            <ul>
+                <li><a href="/" class="genre-link {% if not selected_cat %}active{% endif %}">Все жанры</a></li>
+                {% for cat in meta.genres %}
+                <li><a href="/genre/{{ cat.category_id }}" class="genre-link {% if selected_cat == cat.category_id %}active{% endif %}">{{ cat.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
