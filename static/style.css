@@ -99,12 +99,12 @@ body {
     box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
 }
 
-/* АНАЛИТИКА (ФИКС: Сместили правее на 40px) */
+/* АНАЛИТИКА  */
 .analytics-group {
     display: flex !important;
     gap: 30px;
     align-items: center;
-    margin-left: 40px; /* Добавили отступ, чтобы отодвинуть от фильтров */
+    margin-left: 40px; /*  отступ, чтобы отодвинуть от фильтров */
 }
 
 .popular-dropdown { position: relative; padding: 10px 0; }
