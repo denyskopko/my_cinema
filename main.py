@@ -48,7 +48,7 @@ def search(request: Request, q: str = Query(None), page: int = 0, db: Session = 
         # Сохранение текста запроса в базу MongoDB
         if page == 0:
             save_search_query(q)
-        # Вызов функции поиска из crud.py
+        # Вызов функции поиска 
         films = search_films_by_title(db, q, page)
     else:
         films = []
