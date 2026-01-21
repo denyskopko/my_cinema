@@ -25,7 +25,7 @@ def get_db():
 if __name__ == "__main__":
     print("Проверка подключения к базе данных...")
     try:
-        # Пробуем выполнить простейший запрос
+        # Пробуем выполнить  запрос
         db_gen = get_db()
         db = next(db_gen)
         db.execute(text("SELECT 1"))
